@@ -5,6 +5,8 @@ A simple, self-contained web app for keeping score in round-based card games
 correct any score later. Everything is saved in your browser — no server, no
 sign-in.
 
+**Live site:** <https://alatham78.github.io/Card-scorer/>
+
 ## Features
 
 - **Multiple games** — create, rename, switch between, and delete games.
@@ -14,7 +16,7 @@ sign-in.
 - **Running totals** — cumulative totals per player, with the current leader highlighted.
 - **Persistent** — all data is stored locally in your browser (`localStorage`).
 
-## Running it
+## Running it locally
 
 It's just static files. Either:
 
@@ -26,6 +28,11 @@ It's just static files. Either:
   ```
 
   Then visit <http://localhost:8000>.
+
+## Hosting
+
+The app is deployed to GitHub Pages automatically on every push to `main` via
+the workflow in `.github/workflows/pages.yml`.
 
 ## How it works
 
