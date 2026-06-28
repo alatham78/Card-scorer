@@ -75,11 +75,20 @@
   var emptyHint = $("empty-hint");
 
   /* ---------- Game-level actions ---------- */
-  function createGame() {
-    var name = prompt("Name this game:", "Game " + (state.games.length + 1));
+  function createGame(copyPlayers) {
+    // When copyPlayers is true, carry the active game's players (fresh, with
+    // no scores) into the new game so names don't have to be re-entered.
+    var source = copyPlayers ? activeGame() : null;
+    var defaultName = "Game " + (state.games.length + 1);
+    var name = prompt("Name this game:", defaultName);
     if (name === null) return;
-    name = name.trim() || "Game " + (state.games.length + 1);
-    var game = { id: uid(), name: name, players: [], rounds: [] };
+    name = name.trim() || defaultName;
+
+    var players = source
+      ? source.players.map(function (p) { return { id: uid(), name: p.name }; })
+      : [];
+
+    var game = { id: uid(), name: name, players: players, rounds: [] };
     state.games.push(game);
     state.activeGameId = game.id;
     save();
@@ -232,6 +241,8 @@
     noGameView.hidden = hasGame;
     $("rename-game-btn").disabled = !hasGame;
     $("delete-game-btn").disabled = !hasGame;
+    // Only useful once the current game actually has players to copy.
+    $("new-game-same-btn").disabled = !(hasGame && game.players.length > 0);
 
     if (!game) return;
     renderScoreboard(game);
@@ -329,8 +340,9 @@
   function td(text) { var e = document.createElement("td"); e.textContent = text; return e; }
 
   /* ---------- Event wiring ---------- */
-  $("new-game-btn").addEventListener("click", createGame);
-  $("first-game-btn").addEventListener("click", createGame);
+  $("new-game-btn").addEventListener("click", function () { createGame(false); });
+  $("first-game-btn").addEventListener("click", function () { createGame(false); });
+  $("new-game-same-btn").addEventListener("click", function () { createGame(true); });
   $("rename-game-btn").addEventListener("click", renameGame);
   $("delete-game-btn").addEventListener("click", deleteGame);
   gameSelect.addEventListener("change", function () { selectGame(gameSelect.value); });
