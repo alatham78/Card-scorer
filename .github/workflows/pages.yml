@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Allow the workflow to deploy to Pages and to enable Pages on first run.
+# Allow the workflow to deploy to Pages.
 permissions:
   contents: read
   pages: write
@@ -28,9 +28,6 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          # Enables GitHub Pages for the repo if it isn't already on.
-          enablement: true
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
