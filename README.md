@@ -31,8 +31,10 @@ It's just static files. Either:
 
 ## Hosting
 
-The app is deployed to GitHub Pages automatically on every push to `main` via
-the workflow in `.github/workflows/pages.yml`.
+The app is hosted on GitHub Pages using branch-based deployment: Pages serves
+the static files at the repo root from the `main` branch (Settings → Pages →
+Source: "Deploy from a branch" → `main` / root). Every push to `main`
+automatically rebuilds and republishes the site.
 
 ## How it works
 
