@@ -1,0 +1,193 @@
+:root {
+  --bg: #0f1420;
+  --surface: #1a2233;
+  --surface-2: #232d42;
+  --border: #313d57;
+  --text: #e8ecf4;
+  --muted: #9aa6bd;
+  --accent: #4f8cff;
+  --accent-text: #ffffff;
+  --danger: #e2526a;
+  --leader: #2a3a2c;
+  --leader-border: #4caf50;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.app-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.app-header h1 {
+  margin: 0 0 0.75rem;
+  font-size: 1.4rem;
+}
+
+.game-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+h2 { font-size: 1.1rem; margin: 0 0 0.5rem; }
+
+section { margin-bottom: 1.75rem; }
+
+.inline-form { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.scoreboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.scoreboard-header h2 { margin: 0; }
+
+input[type="text"], input[type="number"], select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  min-width: 0;
+}
+input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+
+#player-name-input { flex: 1; min-width: 140px; }
+
+button {
+  background: var(--accent);
+  color: var(--accent-text);
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+button:hover { filter: brightness(1.08); }
+button.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+button.danger { background: var(--danger); }
+button.link {
+  background: none;
+  color: var(--muted);
+  padding: 0.15rem 0.35rem;
+  font-size: 0.85rem;
+}
+button.link:hover { color: var(--text); }
+
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+th, td {
+  padding: 0.6rem 0.75rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+th:first-child, td:first-child { text-align: left; }
+
+thead th {
+  background: var(--surface-2);
+  font-weight: 600;
+  position: relative;
+}
+
+tfoot td {
+  font-weight: 700;
+  font-size: 1.05rem;
+  border-bottom: none;
+  background: var(--surface-2);
+}
+
+.round-row td:first-child { color: var(--muted); }
+.round-cell { cursor: pointer; }
+.round-cell:hover { background: var(--surface-2); }
+
+th.leader, tfoot td.leader {
+  background: var(--leader);
+  box-shadow: inset 0 -3px 0 var(--leader-border);
+}
+
+.player-th { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; }
+.remove-player {
+  background: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+  padding: 0 0.25rem;
+  line-height: 1;
+}
+.remove-player:hover { color: var(--danger); }
+
+.hint { color: var(--muted); font-size: 0.9rem; }
+
+.empty-state {
+  max-width: 900px;
+  margin: 4rem auto;
+  text-align: center;
+  color: var(--muted);
+}
+.empty-state p { margin-bottom: 1rem; }
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 10;
+}
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal h3 { margin: 0 0 1rem; }
+.round-inputs { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem; }
+.round-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+.round-input-row label { flex: 1; }
+.round-input-row input { width: 110px; text-align: right; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; flex-wrap: wrap; }
+.modal-actions .danger { margin-right: auto; }
+
+[hidden] { display: none !important; }
