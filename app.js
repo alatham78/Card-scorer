@@ -242,7 +242,9 @@
     $("rename-game-btn").disabled = !hasGame;
     $("delete-game-btn").disabled = !hasGame;
     // Only useful once the current game actually has players to copy.
-    $("new-game-same-btn").disabled = !(hasGame && game.players.length > 0);
+    // Guard the lookup so a stale/missing element can't break rendering.
+    var sameBtn = $("new-game-same-btn");
+    if (sameBtn) sameBtn.disabled = !(hasGame && game.players.length > 0);
 
     if (!game) return;
     renderScoreboard(game);
@@ -342,7 +344,9 @@
   /* ---------- Event wiring ---------- */
   $("new-game-btn").addEventListener("click", function () { createGame(false); });
   $("first-game-btn").addEventListener("click", function () { createGame(false); });
-  $("new-game-same-btn").addEventListener("click", function () { createGame(true); });
+  // Guard: this button may be absent if a stale index.html is cached.
+  var sameBtnEl = $("new-game-same-btn");
+  if (sameBtnEl) sameBtnEl.addEventListener("click", function () { createGame(true); });
   $("rename-game-btn").addEventListener("click", renameGame);
   $("delete-game-btn").addEventListener("click", deleteGame);
   gameSelect.addEventListener("change", function () { selectGame(gameSelect.value); });
